@@ -129,7 +129,7 @@ INSERT INTO DISTRICT (ID, NAME, CITY_ID) VALUES
 ('60','Üsküdar','1'),
 ('61','Zeytinburnu','1')
 ;
-INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES -- sokak isimleri alınmalı mı?
+INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
 
 ('1','Akşamsettin','12'), -- Ankara var
 ('2','Andiçen','12'),--var
