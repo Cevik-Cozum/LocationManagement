@@ -1,6 +1,5 @@
-CREATE TABLE CITY
-(
-                      ID varchar(2) NOT NULL PRIMARY KEY,        
+CREATE TABLE CITY    (                  
+                      CITYID varchar(2) NOT NULL PRIMARY KEY,        
 		              NAME varchar(30),
 					  CITY_CODE varchar(2),
 					  X char,
@@ -9,18 +8,18 @@ CREATE TABLE CITY
 );
 CREATE TABLE DISTRICT
 (
-                      ID varchar(2) NOT NULL PRIMARY KEY,        
+                      DISTRICTID varchar(2) NOT NULL PRIMARY KEY,        
 		              NAME varchar(50),
-					  CITY_ID varchar(2) FOREIGN KEY REFERENCES CITY(ID),
+					  CITY_ID varchar(2) FOREIGN KEY REFERENCES CITY(CITYID),
 					  X char,
 					  Y char
 
 );
 CREATE TABLE NEIGHBORHOOD
 (
-                      ID varchar(3) NOT NULL PRIMARY KEY,        
+                      NEIGHBORHOODID varchar(3) NOT NULL PRIMARY KEY,        
 		              NAME nvarchar(50),
-					  DISTRICT_ID varchar(2) FOREIGN KEY REFERENCES DISTRICT(ID),
+					  DISTRICT_ID varchar(2) FOREIGN KEY REFERENCES DISTRICT(DISTRICTID),
 					  X char,
 					  Y char
 
@@ -28,16 +27,16 @@ CREATE TABLE NEIGHBORHOOD
 
 CREATE TABLE ADDRESS
 (
-                      ID varchar(3) NOT NULL PRIMARY KEY,        
+                      ADDRESSID varchar(3) NOT NULL PRIMARY KEY,        
 		              NAME varchar(150),
-					  NEIGHBORHOOD_ID varchar(3) FOREIGN KEY REFERENCES NEIGHBORHOOD(ID),
+					  NEIGHBORHOOD_ID varchar(3) FOREIGN KEY REFERENCES NEIGHBORHOOD(NEIGHBORHOODID),
 					  X char,
 					  Y char
 
 );
 CREATE TABLE TELEPHONE
 (
-                      ID varchar(3) NOT NULL PRIMARY KEY,        
+                      TELEPHONEID varchar(3) NOT NULL PRIMARY KEY,        
 		              PHONE varchar(30),
 					  
 );
@@ -45,29 +44,29 @@ CREATE TABLE TELEPHONE
 
    CREATE TABLE HOSPITAL
 (
-                      ID varchar(3) NOT NULL PRIMARY KEY,        
+                       HOSPITALID varchar(3) NOT NULL PRIMARY KEY,        
 		              NAME varchar(150),
-					  ADDRESS_ID varchar(3) FOREIGN KEY REFERENCES ADDRESS(ID),
+					  ADDRESS_ID varchar(3) FOREIGN KEY REFERENCES ADDRESS(ADDRESSID),
 					  X char,
 					  Y char
      );
 	 CREATE TABLE HOSPITAL_TELEPHONE
 (
-                      PHONE_ID varchar(3) FOREIGN KEY REFERENCES TELEPHONE(ID),      
-		            HOSPITAL_ID varchar(3) FOREIGN KEY REFERENCES HOSPITAL(ID),
+                      PHONE_ID varchar(3) FOREIGN KEY REFERENCES TELEPHONE(TELEPHONEID),      
+		            HOSPITAL_ID varchar(3) FOREIGN KEY REFERENCES HOSPITAL(HOSPITALID),
 					  
 );
 
 
-INSERT INTO CITY(ID, NAME, CITY_CODE) VALUES
+INSERT INTO CITY(CITYID, NAME, CITY_CODE) VALUES
 (1, 'İSTANBUL', 34),
 (2, 'ANKARA', 6),
 (3, 'İZMİR', 35);
 
-INSERT INTO DISTRICT (ID, NAME, CITY_ID) VALUES
-('1','Balgat','2'),  --Ankara
+INSERT INTO DISTRICT (DISTRICTID, NAME, CITY_ID) VALUES
+('1','Balgat','2'),
 ('2','Batıkent','2'),
-('3','Çankaya','2'), 
+('3','Çankaya','2'), --ankara
 ('4','Çukurambar','2'),
 ('5','Dikmen','2'),
 ('6','Etimesgut','2'),
@@ -80,7 +79,7 @@ INSERT INTO DISTRICT (ID, NAME, CITY_ID) VALUES
 ('13','Ulus','2'),
 ('14','Yenimahalle','2'),
 
-('15','Aliağa','3'),--Izmir
+('15','Aliağa','3'),--izmir
 ('16','Balçova','3'),
 ('17','Bayraklı','3'),
 ('18','Bergama','3'),
@@ -94,7 +93,7 @@ INSERT INTO DISTRICT (ID, NAME, CITY_ID) VALUES
 ('26','Selçuk','3'),
 ('27','Urla','3'),
 
-('28','Arnavutköy','1'),--Istanbul
+('28','Arnavutköy','1'),--istanbul
 ('29','Ataşehir','1'),
 ('30','Avcılar','1'),
 ('31','Bağcılar','1'),
@@ -129,9 +128,9 @@ INSERT INTO DISTRICT (ID, NAME, CITY_ID) VALUES
 ('60','Üsküdar','1'),
 ('61','Zeytinburnu','1')
 ;
-INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
+INSERT INTO NEIGHBORHOOD (NEIGHBORHOODID, NAME, DISTRICT_ID) VALUES -- sokak isimleri alınmalı mı?
 
-('1','Akşamsettin','12'), -- Ankara var
+('1','Akşamsettin','12'), -- ankara --var
 ('2','Andiçen','12'),--var
 ('3','Balgat','3'),
 ('4','Balgat','1'),
@@ -167,7 +166,7 @@ INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
 ('34','Tuzluçayır','10'), --var
 ('35','Yeni Mahalle','11'),
 ('36','Yukarı Dikmen','3'),--var
-('37','Kurtuluş','15'),--Izmir --var
+('37','Kurtuluş','15'),--izmir --var
 ('38','Balçova','16'),
 ('39','Mansuroğlu','17'),--var
 ('40','Mansuroğlu','17'),--var
@@ -202,7 +201,7 @@ INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
 ('69','Kalabak','27'),--var
 ('70','Hacı İsa','27'),--var
 ('71','Yenikent','27'),--var
-('72','Arnavutköy Merkez','28'),--Istanbul var
+('72','Arnavutköy Merkez','28'),--istanbul var
 ('73','Küçükbakkalköy','29'),
 ('74','Ferhatpaşa','29'),
 ('75','Küçükbakkalköy','29'),
@@ -314,7 +313,7 @@ INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
 ('181','Gültepe','47'),
 ('182','Merkez','47'),
 ('183','Kağıthane','47'),--yok
-('184','Atalar','48'),--yok 
+('184','Atalar','48'),--yok kartal
 ('185','Petrol İş','48'),
 ('186','Orta','48'),
 ('187','Atalar','48'),
@@ -395,7 +394,7 @@ INSERT INTO NEIGHBORHOOD (ID, NAME, DISTRICT_ID) VALUES
 ('262','Çırpıcı','61'),
 ('263','Zeytinburnu','61')--yok
 ;
-INSERT INTO ADDRESS(ID, NAME,NEIGHBORHOOD_ID) VALUES
+INSERT INTO ADDRESS(ADDRESSID, NAME,NEIGHBORHOOD_ID) VALUES--name ne olmalı
 ('1','Yukarı Dikmen Mah.630.Sok.No:6 Çankaya /ANKARA','36'),--ANKARA
 ('2','Elvan Mah. 1935.Sok. No:5 Etimesgut/ANKARA','11'),
 ('3','Paris Cad. No:58 Kavaklıdere-Çankaya/ANKARA','30'),
@@ -407,7 +406,7 @@ INSERT INTO ADDRESS(ID, NAME,NEIGHBORHOOD_ID) VALUES
 ('9','Bülten Sok. No:44 Kavaklıdere-Çankaya/ANKARA','20'),
 ('10','Birlik Mah. ŞehitKurbani Akboğa Sok.No:26 Çankaya/ANKARA	','6'),
 ('11','Tunus Cad. No:28 Kavaklıdere-Çankaya/ANKARA','21'),
-('12','Şehit Osmanavcı Mah.2649. sok. No:2 Eryaman Etimesgut /ANKARA','33'),
+('12','Şehit Osmanavcı Mah.2649. sok. No:2 Eryaman –Etimesgut /ANKARA','33'),
 ('13','Güneş Sokak No:14 Kavaklıdere-Çankaya/ANKARA','22'),
 ('14','Kızılcaşar Köyü, Serpmeler No:55 Gölbaşı/ANKARA','25'),
 ('15','Anavatan Cad. No:20 Keçiören/ANKARA','23'),
@@ -658,7 +657,7 @@ INSERT INTO ADDRESS(ID, NAME,NEIGHBORHOOD_ID) VALUES
 ('260','Zakirbaşı Sk.No:30 Zeytinburnu','263');
 
 
-INSERT INTO HOSPITAL(ID, NAME,ADDRESS_ID) VALUES
+INSERT INTO HOSPITAL(HOSPITALID, NAME, ADDRESS_ID) VALUES
 ('1','ÖZEL ACIBADEM ANKARA HASTANESİ','1'),
 ('2','ÖZEL A LİFE PARK HOSPİTAL ANKARA HASTANESİ','2'),
 ('3','ÖZEL ANKARA GÜVEN HASTANESİ','3'),
@@ -919,3 +918,5 @@ INSERT INTO HOSPITAL(ID, NAME,ADDRESS_ID) VALUES
 ('258','ÖZEL İSTANBUL BALIKLI RUM HASTANESİ','258'),
 ('259','ÖZEL SANTE PLUS HASTANESİ','259'),
 ('260','Özel Yedikule Surp Pırgiç Ermeni Hastanesi','260');
+
+
